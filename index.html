@@ -2246,20 +2246,26 @@
         <!-- Form: Log Bug Ticket -->
         <div class="contact-form-container">
           <form id="bug-report-form" onsubmit="submitBugReport(event)">
+            <!-- Web3Forms Access Key -->
+            <input type="hidden" name="access_key" value="2cccaccd-5d69-4427-a5c3-b23e175cc1bb">
+            <!-- Anti-Spam Honeypot Field -->
+            <input type="checkbox" name="botcheck" class="hidden" style="display: none;">
+            <!-- Email Subject Configuration -->
+            <input type="hidden" name="_subject" value="[QA Portfolio Bug Report] New Ticket Logged">
             
             <div class="form-group">
               <label for="reporter-name" class="form-label">Reporter Name *</label>
-              <input type="text" id="reporter-name" class="form-input" placeholder="Enter your full name" required>
+              <input type="text" id="reporter-name" name="name" class="form-input" placeholder="Enter your full name" required>
             </div>
 
             <div class="form-group">
               <label for="reporter-email" class="form-label">Reporter Email Address *</label>
-              <input type="email" id="reporter-email" class="form-input" placeholder="e.g. manager@company.com" required>
+              <input type="email" id="reporter-email" name="email" class="form-input" placeholder="e.g. manager@company.com" required>
             </div>
 
             <div class="form-group">
               <label for="bug-priority" class="form-label">Ticket Severity Level</label>
-              <select id="bug-priority" class="form-select">
+              <select id="bug-priority" name="priority" class="form-select">
                 <option value="Low">Low - Casual Inquiry / Hello</option>
                 <option value="Medium" selected>Medium - Opportunity / Interview</option>
                 <option value="High">High - Urgent Hiring / Project Contract</option>
@@ -2268,7 +2274,7 @@
 
             <div class="form-group">
               <label for="bug-description" class="form-label">Issue Details / Message *</label>
-              <textarea id="bug-description" class="form-textarea" placeholder="Provide details, project specs, or inquiry messages..." required></textarea>
+              <textarea id="bug-description" name="message" class="form-textarea" placeholder="Provide details, project specs, or inquiry messages..." required></textarea>
             </div>
 
             <div class="form-submit-row">
@@ -2737,7 +2743,7 @@
     function submitBugReport(event) {
       event.preventDefault();
 
-      // Collect mock variables
+      // Collect form variables
       const name = document.getElementById('reporter-name').value;
       const email = document.getElementById('reporter-email').value;
       const priority = document.getElementById('bug-priority').value;
@@ -2748,19 +2754,67 @@
         return;
       }
 
-      // Generate a mock ticket code key
-      const randId = Math.floor(1000 + Math.random() * 9000);
-      const severityPrefix = priority.substring(0, 3).toUpperCase();
-      const ticketCode = `BUG-${severityPrefix}-${randId}`;
+      // Check if honeypot is checked (spam bot protection)
+      const botcheck = event.target.querySelector('input[name="botcheck"]').checked;
+      if (botcheck) {
+        console.warn("Spam submission blocked.");
+        return;
+      }
 
-      // Set ticket ID in alert modal
-      modalTicketKey.textContent = `TICKET-KEY: ${ticketCode}`;
-      
-      // Open modal
-      successModal.classList.add('active');
+      // Show loading state on the button
+      const submitBtn = event.target.querySelector('button[type="submit"]');
+      const originalBtnText = submitBtn.textContent;
+      submitBtn.textContent = "[...] SENDING REPORT...";
+      submitBtn.disabled = true;
 
-      // Clear input fields
-      document.getElementById('bug-report-form').reset();
+      // Submit via Web3Forms API
+      fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          access_key: "2cccaccd-5d69-4427-a5c3-b23e175cc1bb",
+          name: name,
+          email: email,
+          priority: priority,
+          message: desc,
+          subject: `[QA Portfolio Bug Report] Ticket logged by ${name} (${priority} severity)`
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        // Restore button state
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+
+        // Web3Forms returns { success: true, message: "..." }
+        if (data.success === true || data.success === "true") {
+          // Generate a mock JIRA ticket code key
+          const randId = Math.floor(1000 + Math.random() * 9000);
+          const severityPrefix = priority.substring(0, 3).toUpperCase();
+          const ticketCode = `BUG-${severityPrefix}-${randId}`;
+
+          // Set ticket ID in alert modal
+          modalTicketKey.textContent = `TICKET-KEY: ${ticketCode}`;
+          
+          // Open modal
+          successModal.classList.add('active');
+
+          // Clear input fields
+          document.getElementById('bug-report-form').reset();
+        } else {
+          alert("Error: Message submission failed. " + (data.message || "Please try again or email directly."));
+        }
+      })
+      .catch(error => {
+        // Restore button state
+        submitBtn.textContent = originalBtnText;
+        submitBtn.disabled = false;
+        console.error("Web3Forms Error:", error);
+        alert("Network Error: Could not connect to form server. Please email directly at kathir7708@gmail.com");
+      });
     }
 
     function closeModal() {
