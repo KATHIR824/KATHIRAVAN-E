@@ -1,0 +1,2771 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kathiravan E | Software Tester (QA Engineer)</title>
+  <meta name="description" content="Portfolio of Kathiravan E, a Software Tester skilled in Manual and Automation Testing. Finding what breaks, before your users do.">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <style>
+    /* --------------------------------------------------
+       CSS VARIABLES & THEME
+       -------------------------------------------------- */
+    :root {
+      --bg-color: #0d1117;
+      --bg-rgb: 13, 17, 23;
+      --card-bg: #161b22;
+      --card-bg-rgb: 22, 27, 34;
+      --border-color: #21262d;
+      --border-hover: #30363d;
+      --text-primary: #e6edf3;
+      --text-secondary: #8b949e;
+      --accent-pass: #3fb950;
+      --accent-pass-rgb: 63, 185, 80;
+      --accent-warn: #d29922;
+      --accent-warn-rgb: 210, 153, 34;
+      --accent-fail: #f85149;
+      --accent-fail-rgb: 248, 81, 73;
+      --font-mono: 'JetBrains Mono', monospace;
+      --font-sans: 'Inter', sans-serif;
+      --glow-intensity: 0 0 15px rgba(63, 185, 80, 0.15);
+      --transition-speed: 0.3s;
+    }
+
+    /* Reset & Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Custom Selection */
+    ::selection {
+      background-color: rgba(63, 185, 80, 0.3);
+      color: var(--text-primary);
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: var(--bg-color);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-color);
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--accent-pass);
+    }
+
+    /* Typography Utilities */
+    h1, h2, h3, h4, h5, h6, .code-text {
+      font-family: var(--font-mono);
+      font-weight: 600;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      color: var(--text-primary);
+    }
+    
+    .section-title::before {
+      content: '$ ';
+      color: var(--accent-pass);
+      font-weight: normal;
+    }
+
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background-color: var(--accent-pass);
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      font-weight: 500;
+      border: 1px solid transparent;
+    }
+
+    .badge-pass {
+      background-color: rgba(63, 185, 80, 0.1);
+      color: var(--accent-pass);
+      border-color: rgba(63, 185, 80, 0.2);
+    }
+
+    .badge-warn {
+      background-color: rgba(210, 153, 34, 0.1);
+      color: var(--accent-warn);
+      border-color: rgba(210, 153, 34, 0.2);
+    }
+
+    .badge-fail {
+      background-color: rgba(248, 81, 73, 0.1);
+      color: var(--accent-fail);
+      border-color: rgba(248, 81, 73, 0.2);
+    }
+
+    /* Keyboard Focus State */
+    a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+      outline: 2px solid var(--accent-pass);
+      outline-offset: 4px;
+    }
+
+    /* --------------------------------------------------
+       BACKGROUND PERSPECTIVE GRID
+       -------------------------------------------------- */
+    #bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: -1;
+      pointer-events: none;
+      opacity: 0.65;
+    }
+
+    /* --------------------------------------------------
+       HEADER & NAVIGATION
+       -------------------------------------------------- */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background-color: rgba(13, 17, 23, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      transition: all var(--transition-speed);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 15px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-badge {
+      background: rgba(63, 185, 80, 0.15);
+      border: 1px solid var(--accent-pass);
+      color: var(--accent-pass);
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      font-family: var(--font-mono);
+      animation: pulse-border 2s infinite alternate;
+    }
+
+    .logo-text {
+      color: var(--text-primary);
+      font-size: 1.1rem;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-sub {
+      color: var(--accent-pass);
+    }
+
+    .nav-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      background-color: rgba(22, 27, 34, 0.6);
+      padding: 4px 10px;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background-color: var(--accent-pass);
+      border-radius: 50%;
+      display: inline-block;
+      box-shadow: 0 0 8px var(--accent-pass);
+      animation: blink 1.5s infinite;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      transition: color var(--transition-speed);
+      position: relative;
+      padding: 5px 0;
+    }
+
+    .nav-link:hover {
+      color: var(--text-primary);
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background-color: var(--accent-pass);
+      transition: width var(--transition-speed);
+    }
+
+    .nav-link:hover::after {
+      width: 100%;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-primary);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    /* --------------------------------------------------
+       HERO SECTION
+       -------------------------------------------------- */
+    .hero-section {
+      min-height: 100vh;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 120px 30px 60px 30px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      align-items: center;
+      gap: 40px;
+      perspective: 1000px;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .hero-content.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .hero-tag {
+      font-family: var(--font-mono);
+      color: var(--accent-pass);
+      font-size: 0.9rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .hero-title {
+      font-size: 3.5rem;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      color: var(--text-primary);
+    }
+
+    .hero-subtitle {
+      font-size: 1.4rem;
+      color: var(--text-secondary);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .hero-subtitle-highlight {
+      color: var(--accent-warn);
+      font-family: var(--font-mono);
+      font-size: 1.1rem;
+      background: rgba(210, 153, 34, 0.1);
+      padding: 2px 8px;
+      border-radius: 4px;
+      border: 1px solid rgba(210, 153, 34, 0.2);
+    }
+
+    .hero-tagline {
+      font-size: 1.1rem;
+      max-width: 500px;
+      color: var(--text-secondary);
+      border-left: 2px solid var(--border-color);
+      padding-left: 15px;
+    }
+
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      margin-top: 15px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all var(--transition-speed);
+    }
+
+    .btn-primary {
+      background-color: var(--accent-pass);
+      color: var(--bg-color);
+      border: 1px solid var(--accent-pass);
+    }
+
+    .btn-primary:hover {
+      background-color: transparent;
+      color: var(--accent-pass);
+      box-shadow: 0 0 15px rgba(63, 185, 80, 0.3);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--text-primary);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent-pass);
+      color: var(--accent-pass);
+    }
+
+    /* 3D Rotating Terminal Component */
+    .hero-visual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease-out;
+    }
+
+    .terminal-window {
+      width: 100%;
+      max-width: 480px;
+      background-color: #0c0f13;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(63, 185, 80, 0.05);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+
+    .terminal-header {
+      background-color: #161b22;
+      padding: 10px 15px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .terminal-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .terminal-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .dot-red { background-color: var(--accent-fail); }
+    .dot-yellow { background-color: var(--accent-warn); }
+    .dot-green { background-color: var(--accent-pass); }
+
+    .terminal-title {
+      color: var(--text-secondary);
+      font-size: 0.75rem;
+    }
+
+    .terminal-body {
+      padding: 20px;
+      height: 320px;
+      overflow-y: auto;
+      color: #9cdcfe;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      line-height: 1.4;
+      text-shadow: 0 0 2px rgba(156, 220, 254, 0.1);
+    }
+
+    .terminal-body::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .terminal-line {
+      opacity: 0;
+      transform: translateY(5px);
+      animation: reveal-line 0.15s forwards ease-out;
+    }
+
+    .line-cmd {
+      color: var(--text-primary);
+    }
+    .line-cmd::before {
+      content: '$ ';
+      color: var(--accent-fail);
+    }
+
+    .line-info { color: var(--text-secondary); }
+    .line-success { color: var(--accent-pass); }
+    .line-warning { color: var(--accent-warn); }
+    
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      height: 15px;
+      background-color: var(--text-primary);
+      margin-left: 2px;
+      vertical-align: middle;
+      animation: flash 1s infinite;
+    }
+
+    /* --------------------------------------------------
+       COMMON SECTION STYLING & 3D REVEALS
+       -------------------------------------------------- */
+    section {
+      padding: 100px 30px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .scroll-reveal {
+      opacity: 0;
+      transform: translateY(50px) rotateX(4deg);
+      transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+      transform-origin: top center;
+    }
+
+    .scroll-reveal.visible {
+      opacity: 1;
+      transform: translateY(0) rotateX(0);
+    }
+
+    /* --------------------------------------------------
+       ABOUT ME
+       -------------------------------------------------- */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 40px;
+      align-items: center;
+    }
+
+    /* System Info ID Card Aesthetic */
+    .profile-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 24px;
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: border-color var(--transition-speed);
+    }
+
+    .profile-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .profile-header {
+      border-bottom: 1px dashed var(--border-color);
+      padding-bottom: 15px;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .profile-title {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .profile-avatar-container {
+      width: 100%;
+      aspect-ratio: 1;
+      max-width: 220px;
+      margin: 0 auto 20px auto;
+      border: 2px solid var(--border-color);
+      border-radius: 8px;
+      background-color: #0d1117;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .avatar-scanlines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%, 
+        rgba(0, 0, 0, 0.25) 50%
+      ), linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 0.06),
+        rgba(0, 255, 0, 0.02),
+        rgba(0, 255, 0, 0.06)
+      );
+      background-size: 100% 4px, 6px 100%;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    .avatar-scan-bar {
+      position: absolute;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--accent-pass), transparent);
+      box-shadow: 0 0 8px var(--accent-pass);
+      z-index: 3;
+      animation: scan 4s linear infinite;
+    }
+
+    .avatar-placeholder {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--accent-pass);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .avatar-icon {
+      font-size: 2.5rem;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .profile-details {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+
+    .profile-row {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(33, 38, 45, 0.4);
+      padding-bottom: 6px;
+    }
+
+    .profile-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .profile-label {
+      color: var(--text-secondary);
+    }
+
+    .profile-val {
+      color: var(--text-primary);
+    }
+
+    .about-bio {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .bio-text {
+      font-size: 1.1rem;
+      color: var(--text-primary);
+      line-height: 1.7;
+    }
+
+    .bio-highlight {
+      border-left: 3px solid var(--accent-pass);
+      padding-left: 20px;
+      font-style: italic;
+      color: var(--text-secondary);
+      font-size: 1rem;
+    }
+
+    .about-meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 15px;
+    }
+
+    .meta-box {
+      background-color: rgba(22, 27, 34, 0.4);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 15px;
+      font-family: var(--font-mono);
+    }
+
+    .meta-box-title {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+
+    .meta-box-val {
+      font-size: 1rem;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* --------------------------------------------------
+       TECHNICAL SKILLS (3D TILT CARDS)
+       -------------------------------------------------- */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      perspective: 1000px;
+    }
+
+    .skills-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 28px;
+      transform-style: preserve-3d;
+      transition: border-color var(--transition-speed);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .skills-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .skills-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: var(--card-accent, var(--accent-pass));
+    }
+
+    .skills-card-icon {
+      font-size: 1.8rem;
+      margin-bottom: 15px;
+      color: var(--card-accent, var(--accent-pass));
+      transform: translateZ(15px);
+    }
+
+    .skills-card-title {
+      font-size: 1.15rem;
+      margin-bottom: 18px;
+      transform: translateZ(20px);
+    }
+
+    .skills-list {
+      list-style-type: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transform: translateZ(10px);
+    }
+
+    .skills-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.9rem;
+    }
+
+    .skills-name-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .skills-indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: var(--card-accent, var(--accent-pass));
+    }
+
+    .skills-level-container {
+      width: 80px;
+      height: 6px;
+      background-color: #0d1117;
+      border-radius: 3px;
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    .skills-level-bar {
+      height: 100%;
+      background-color: var(--card-accent, var(--accent-pass));
+      border-radius: 3px;
+    }
+
+    /* Category Specific Accents */
+    .skills-card-programming { --card-accent: #58a6ff; }
+    .skills-card-automation { --card-accent: #3fb950; }
+    .skills-card-tools { --card-accent: #d29922; }
+    .skills-card-ai { --card-accent: #bc8cff; }
+
+    /* --------------------------------------------------
+       PROJECTS (TEST CASE TICKET AESTHETIC)
+       -------------------------------------------------- */
+    .projects-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    .project-ticket {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: border-color var(--transition-speed);
+    }
+
+    .project-ticket:hover {
+      border-color: var(--border-hover);
+    }
+
+    /* Circular cutout overlays representing tear-off holes */
+    .ticket-cutout-left, .ticket-cutout-right {
+      position: absolute;
+      top: 60px;
+      width: 14px;
+      height: 24px;
+      background-color: var(--bg-color);
+      z-index: 10;
+      border: 1px solid var(--border-color);
+    }
+
+    .ticket-cutout-left {
+      left: -1px;
+      border-radius: 0 12px 12px 0;
+      border-left: none;
+    }
+
+    .ticket-cutout-right {
+      right: -1px;
+      border-radius: 12px 0 0 12px;
+      border-right: none;
+    }
+
+    .ticket-header {
+      padding: 20px 30px;
+      border-bottom: 1px dashed var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .ticket-id-section {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .ticket-id {
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      background-color: #0d1117;
+      padding: 4px 8px;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+    }
+
+    .ticket-title {
+      font-size: 1.3rem;
+      color: var(--text-primary);
+    }
+
+    .ticket-body {
+      padding: 30px;
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 40px;
+    }
+
+    .ticket-desc {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .ticket-meta-title {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .ticket-desc-text {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .ticket-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ticket-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      background-color: rgba(22, 27, 34, 0.8);
+      color: var(--text-primary);
+      padding: 4px 10px;
+      border-radius: 4px;
+      border: 1px solid var(--border-color);
+    }
+
+    .ticket-sidebar {
+      border-left: 1px solid rgba(33, 38, 45, 0.4);
+      padding-left: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .sidebar-metrics {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .metric-row {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+    }
+
+    .metric-label {
+      color: var(--text-secondary);
+    }
+
+    .metric-val {
+      color: var(--text-primary);
+    }
+
+    .ticket-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn-toggle-details {
+      width: 100%;
+      background: none;
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      padding: 10px;
+      cursor: pointer;
+      border-radius: 6px;
+      transition: all var(--transition-speed);
+      text-align: center;
+      user-select: none;
+    }
+
+    .btn-toggle-details:hover {
+      border-color: var(--text-secondary);
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+
+    /* Expandable test case steps details */
+    .ticket-details-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+      background-color: rgba(13, 17, 23, 0.5);
+      border-top: 1px solid var(--border-color);
+    }
+
+    .ticket-details-content {
+      padding: 30px;
+    }
+
+    .verification-steps-title {
+      font-size: 0.9rem;
+      margin-bottom: 15px;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .steps-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      text-align: left;
+    }
+
+    .steps-table th, .steps-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .steps-table th {
+      color: var(--text-secondary);
+      font-weight: 500;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+    }
+
+    .steps-table tr:hover td {
+      background-color: rgba(255, 255, 255, 0.01);
+    }
+
+    .step-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* --------------------------------------------------
+       TOOLS BAR SECTION (FLOAT LABELS)
+       -------------------------------------------------- */
+    .tools-section {
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      background-color: rgba(22, 27, 34, 0.2);
+    }
+
+    .tools-track {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .tool-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      transition: all var(--transition-speed);
+      padding: 15px 20px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+    }
+
+    .tool-badge:hover {
+      color: var(--text-primary);
+      background-color: var(--card-bg);
+      border-color: var(--border-color);
+      transform: translateY(-8px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), var(--glow-intensity);
+    }
+
+    .tool-badge svg {
+      width: 32px;
+      height: 32px;
+      fill: currentColor;
+      transition: fill var(--transition-speed), transform var(--transition-speed);
+    }
+
+    .tool-badge:hover svg {
+      transform: scale(1.1);
+    }
+
+    /* Tool specifics colors on hover */
+    .tool-badge-jira:hover { color: #0052cc; }
+    .tool-badge-selenium:hover { color: #00b000; }
+    .tool-badge-testng:hover { color: #f39c12; }
+    .tool-badge-github:hover { color: #f0f6fc; }
+    .tool-badge-excel:hover { color: #107c41; }
+    .tool-badge-intellij:hover { color: #fe315b; }
+    .tool-badge-vscode:hover { color: #007acc; }
+
+    /* --------------------------------------------------
+       EDUCATION & CERTIFICATIONS
+       -------------------------------------------------- */
+    .edu-cert-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.1fr;
+      gap: 40px;
+    }
+
+    .log-panel {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 30px;
+      height: fit-content;
+    }
+
+    .log-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 15px;
+      margin-bottom: 24px;
+    }
+
+    .log-title {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .log-dot-pulse {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent-pass);
+    }
+
+    .log-entries {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      position: relative;
+    }
+
+    .log-entries::before {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: 10px;
+      bottom: 5px;
+      width: 1px;
+      background-color: var(--border-color);
+    }
+
+    .log-item {
+      display: flex;
+      gap: 20px;
+      position: relative;
+    }
+
+    .log-node {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background-color: #0d1117;
+      border: 2px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      flex-shrink: 0;
+      color: var(--text-secondary);
+      font-size: 0.6rem;
+      transition: all var(--transition-speed);
+    }
+
+    .log-item:hover .log-node {
+      border-color: var(--accent-pass);
+      color: var(--accent-pass);
+      box-shadow: 0 0 8px rgba(63, 185, 80, 0.4);
+    }
+
+    .log-content {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .log-time {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .log-entry-title {
+      font-size: 1.05rem;
+      color: var(--text-primary);
+    }
+
+    .log-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .log-meta {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent-warn);
+    }
+
+    /* --------------------------------------------------
+       CONTACT (LOG BUG REPORT FORM STYLE)
+       -------------------------------------------------- */
+    .contact-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 50px;
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: border-color var(--transition-speed);
+    }
+
+    .contact-card:hover {
+      border-color: var(--border-hover);
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    .contact-header-block {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .contact-title {
+      font-size: 1.8rem;
+    }
+
+    .contact-intro {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    .contact-link-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: color var(--transition-speed);
+    }
+
+    .contact-link-item:hover {
+      color: var(--text-primary);
+    }
+
+    .contact-icon-wrapper {
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      border: 1px solid var(--border-color);
+      background-color: #0d1117;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-pass);
+    }
+
+    .contact-form-container {
+      border-left: 1px solid rgba(33, 38, 45, 0.4);
+      padding-left: 50px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      background-color: #0d1117;
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      border-radius: 6px;
+      padding: 12px 15px;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      transition: border-color var(--transition-speed);
+      width: 100%;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--accent-pass);
+      outline: none;
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .form-submit-row {
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    /* Modal for JIRA Submission Alert */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(13, 17, 23, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-speed);
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--accent-pass);
+      border-radius: 12px;
+      max-width: 500px;
+      width: 90%;
+      padding: 30px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), var(--glow-intensity);
+      text-align: center;
+      transform: scale(0.9);
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+
+    .modal-icon {
+      font-size: 3rem;
+      color: var(--accent-pass);
+      margin-bottom: 20px;
+      animation: pulse-border 1.5s infinite alternate;
+      display: inline-block;
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      border-radius: 50%;
+      border: 2px solid var(--accent-pass);
+    }
+
+    .modal-title {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    .modal-text {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .modal-ticket-id {
+      background-color: #0d1117;
+      padding: 8px 16px;
+      border: 1px dashed var(--border-color);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      border-radius: 6px;
+      color: var(--accent-warn);
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+
+    /* --------------------------------------------------
+       FOOTER
+       -------------------------------------------------- */
+    footer {
+      border-top: 1px solid var(--border-color);
+      padding: 40px 30px;
+      background-color: #0c0f13;
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .footer-right {
+      text-align: right;
+    }
+
+    /* --------------------------------------------------
+       ANIMATIONS
+       -------------------------------------------------- */
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+
+    @keyframes flash {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+
+    @keyframes pulse-border {
+      0% {
+        box-shadow: 0 0 5px rgba(63, 185, 80, 0.2);
+        border-color: rgba(63, 185, 80, 0.4);
+      }
+      100% {
+        box-shadow: 0 0 15px rgba(63, 185, 80, 0.6);
+        border-color: rgba(63, 185, 80, 1);
+      }
+    }
+
+    @keyframes reveal-line {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes scan {
+      0% { top: 0; }
+      50% { top: 100%; }
+      100% { top: 0; }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* --------------------------------------------------
+       RESPONSIVE DESIGN & MOBILE OVERRIDES
+       -------------------------------------------------- */
+    @media (max-width: 968px) {
+      .hero-section {
+        grid-template-columns: 1fr;
+        padding-top: 100px;
+        gap: 50px;
+      }
+      
+      .hero-content {
+        text-align: center;
+        align-items: center;
+      }
+
+      .hero-title {
+        font-size: 2.8rem;
+      }
+
+      .hero-visual {
+        order: -1; /* Put terminal on top for mobile layouts */
+      }
+
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-card {
+        max-width: 400px;
+        margin: 0 auto;
+      }
+
+      .project-ticket {
+        border-radius: 8px;
+      }
+
+      .ticket-body {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .ticket-sidebar {
+        border-left: none;
+        border-top: 1px solid rgba(33, 38, 45, 0.4);
+        padding-left: 0;
+        padding-top: 30px;
+      }
+
+      .edu-cert-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-card {
+        grid-template-columns: 1fr;
+        padding: 30px;
+      }
+
+      .contact-form-container {
+        border-left: none;
+        border-top: 1px solid rgba(33, 38, 45, 0.4);
+        padding-left: 0;
+        padding-top: 30px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background-color: #0c0f13;
+        border-bottom: 1px solid var(--border-color);
+        flex-direction: column;
+        padding: 20px;
+        gap: 15px;
+        align-items: flex-start;
+      }
+
+      .nav-links.active {
+        display: flex;
+      }
+
+      .mobile-menu-btn {
+        display: block;
+      }
+
+      /* Disable Heavy 3D Transformations on Small Screens for Performance */
+      .skills-card, .profile-card, .project-ticket, .contact-card, .hero-visual {
+        transform: none !important;
+        transition: none !important;
+      }
+
+      #bg-canvas {
+        opacity: 0.3; /* Less visible background grid on mobile */
+      }
+    }
+
+    /* Print styling support */
+    @media print {
+      body {
+        background: white;
+        color: black;
+      }
+      #bg-canvas, header, .btn, .btn-toggle-details, .modal-overlay {
+        display: none !important;
+      }
+      section {
+        page-break-inside: avoid;
+        padding: 20px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- BACKGROUND: 3D Perspectival Grid Scan -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- HEADER -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="logo-container">
+        <div class="logo-badge">QA</div>
+        <span class="logo-text">KATHIRAVAN<span class="logo-sub">.sh</span></span>
+      </a>
+
+      <div class="nav-status">
+        <span class="status-dot"></span>
+        <span>SYS_STATUS: TEST_READY</span>
+      </div>
+
+      <nav class="nav-links">
+        <a href="#about" class="nav-link">./about_me</a>
+        <a href="#skills" class="nav-link">./skills</a>
+        <a href="#projects" class="nav-link">./test_cases</a>
+        <a href="#education" class="nav-link">./education</a>
+        <a href="#contact" class="nav-link">./report_bug</a>
+      </nav>
+
+      <button class="mobile-menu-btn" aria-label="Toggle Navigation Menu">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section" id="hero">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <span style="font-family: var(--font-mono)">[SYSTEM_BOOT]</span> READY
+        </div>
+        <h1 class="hero-title">Kathiravan E</h1>
+        <div class="hero-subtitle">
+          Software Tester 
+          <span class="hero-subtitle-highlight">Manual + Automation</span>
+        </div>
+        <p class="hero-tagline">
+          Finding what breaks, before your users do. Dedicated to delivering defect-free, reliable user experiences.
+        </p>
+        <div class="hero-ctas">
+          <a href="#projects" class="btn btn-primary">Run Test Cases</a>
+          <a href="#contact" class="btn btn-secondary">Report Bug (Contact)</a>
+        </div>
+      </div>
+
+      <!-- 3D Terminal Visualizer -->
+      <div class="hero-visual">
+        <div class="terminal-window">
+          <div class="terminal-header">
+            <div class="terminal-dots">
+              <span class="terminal-dot dot-red"></span>
+              <span class="terminal-dot dot-yellow"></span>
+              <span class="terminal-dot dot-green"></span>
+            </div>
+            <div class="terminal-title">bash - kathiravan@qa-suite:~</div>
+            <div style="width: 44px"></div>
+          </div>
+          <div class="terminal-body" id="terminal-screen">
+            <!-- Simulated console code will inject here -->
+            <div class="terminal-line"><span class="line-cmd">init-tester --profile kathiravan-e</span></div>
+            <div class="terminal-line"><span class="line-info">[INFO] Initializing WebDriver bindings... Done.</span></div>
+            <div class="terminal-line"><span class="line-info">[INFO] Spawning local environment hooks...</span></div>
+            <div class="terminal-line"><span class="line-info">[INFO] System check: Bangalore, KA, India.</span></div>
+            <div class="terminal-line cursor-line">Executing suite...<span class="cursor"></span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT ME -->
+    <section id="about" class="scroll-reveal">
+      <h2 class="section-title">Profile Inspection</h2>
+      <div class="about-grid">
+        
+        <!-- Badge Profile Card -->
+        <div class="profile-card">
+          <div class="profile-header">
+            <span class="profile-title">Identification Token</span>
+            <span class="badge badge-pass">VERIFIED</span>
+          </div>
+          <div class="profile-avatar-container">
+            <div class="avatar-scanlines"></div>
+            <div class="avatar-scan-bar"></div>
+            <div class="avatar-placeholder">
+              <span class="avatar-icon">🔍</span>
+              <span>TESTER_ID: KE-824825</span>
+            </div>
+          </div>
+          <div class="profile-details">
+            <div class="profile-row">
+              <span class="profile-label">OBJECT:</span>
+              <span class="profile-val">Kathiravan E</span>
+            </div>
+            <div class="profile-row">
+              <span class="profile-label">ROLE:</span>
+              <span class="profile-val">QA Engineer</span>
+            </div>
+            <div class="profile-row">
+              <span class="profile-label">LOCATION:</span>
+              <span class="profile-val">Bangalore, IN</span>
+            </div>
+            <div class="profile-row">
+              <span class="profile-label">STATUS:</span>
+              <span class="profile-val" style="color: var(--accent-pass)">ACTIVE_SEEKING</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-bio">
+          <p class="bio-text">
+            I'm Kathiravan E, a fresher Software Tester with a BE in Computer Science and Engineering from Shree Venkateshwara Hi-Tech Engineering College. I've completed hands-on training in Manual and Automation Testing, along with Java and SQL. I enjoy digging into applications to find what doesn't work before it reaches real users.
+          </p>
+          <p class="bio-highlight">
+            "Software quality is not an afterthought. I focus on negative boundaries and edge validation to ensure structural stability."
+          </p>
+          <p class="bio-text">
+            Currently building my skills in Selenium-based automation frameworks (TestNG, Maven) and exploring how AI tools can support smarter, faster testing, test case generation, and defect profiling.
+          </p>
+          
+          <div class="about-meta-grid">
+            <div class="meta-box">
+              <div class="meta-box-title">Core Capability</div>
+              <div class="meta-box-val">
+                <span class="status-dot" style="background-color: var(--accent-pass); box-shadow: 0 0 8px var(--accent-pass);"></span>
+                Manual + Auto
+              </div>
+            </div>
+            <div class="meta-box">
+              <div class="meta-box-title">Validation Focus</div>
+              <div class="meta-box-val">
+                <span class="status-dot" style="background-color: var(--accent-warn); box-shadow: 0 0 8px var(--accent-warn);"></span>
+                Boundary & DB
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TECHNICAL SKILLS -->
+    <section id="skills" class="scroll-reveal">
+      <h2 class="section-title">Skill Matrix</h2>
+      <div class="skills-grid">
+        
+        <!-- Programming & Query Languages -->
+        <div class="skills-card skills-card-programming">
+          <div class="skills-card-icon">💻</div>
+          <h3 class="skills-card-title">Languages</h3>
+          <ul class="skills-list">
+            <li class="skills-item">
+              <span class="skills-name-wrapper"><span class="skills-indicator"></span>Java</span>
+              <div class="skills-level-container"><div class="skills-level-bar" style="width: 80%"></div></div>
+            </li>
+            <li class="skills-item">
+              <span class="skills-name-wrapper"><span class="skills-indicator"></span>SQL (Queries & Joins)</span>
+              <div class="skills-level-container"><div class="skills-level-bar" style="width: 75%"></div></div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Automation Testing -->
+        <div class="skills-card skills-card-automation">
+          <div class="skills-card-icon">🤖</div>
+          <h3 class="skills-card-title">Automation</h3>
+          <ul class="skills-list">
+            <li class="skills-item">
+              <span class="skills-name-wrapper"><span class="skills-indicator"></span>Selenium WebDriver</span>
+              <div class="skills-level-container"><div class="skills-level-bar" style="width: 85%"></div></div>
+            </li>
+            <li class="skills-item">
+              <span class="skills-name-wrapper"><span class="skills-indicator"></span>TestNG Framework</span>
+              <div class="skills-level-container"><div class="skills-level-bar" style="width: 75%"></div></div>
+            </li>
+            <li class="skills-item">
+              <span class="skills-name-wrapper"><span class="skills-indicator"></span>Page Object Model (POM)</span>
+              <div class="skills-level-container"><div class="skills-level-bar" style="width: 70%"></div></div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Testing & Tracking Tools -->
+        <div class="skills-card skills-card-tools">
+          <div class="skills-card-icon">📋</div>
+          <h3 class="skills-card-title">Manual & Management</h3>
+          <ul class="skills-list">
+            <li class="skills-item">
+              <span class="skills-name-wrapper"><span class="skills-indicator"></span>JIRA (Defect Tracking)</span>
+              <div class="skills-level-container"><div class="skills-level-bar" style="width: 85%"></div></div>
+            </li>
+            <li class="skills-item">
+              <span class="skills-name-wrapper"><span class="skills-indicator"></span>MS Excel (Test Sheets)</span>
+              <div class="skills-level-container"><div class="skills-level-bar" style="width: 80%"></div></div>
+            </li>
+            <li class="skills-item">
+              <span class="skills-name-wrapper"><span class="skills-indicator"></span>Regression & Boundary</span>
+              <div class="skills-level-container"><div class="skills-level-bar" style="width: 90%"></div></div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- AI Tools -->
+        <div class="skills-card skills-card-ai">
+          <div class="skills-card-icon">⚡</div>
+          <h3 class="skills-card-title">AI & Productivity</h3>
+          <ul class="skills-list">
+            <li class="skills-item">
+              <span class="skills-name-wrapper"><span class="skills-indicator"></span>AI-Assisted Testing</span>
+              <div class="skills-level-container"><div class="skills-level-bar" style="width: 75%"></div></div>
+            </li>
+            <li class="skills-item">
+              <span class="skills-name-wrapper"><span class="skills-indicator"></span>GitHub (VCS)</span>
+              <div class="skills-level-container"><div class="skills-level-bar" style="width: 80%"></div></div>
+            </li>
+            <li class="skills-item">
+              <span class="skills-name-wrapper"><span class="skills-indicator"></span>IntelliJ IDEA / VS Code</span>
+              <div class="skills-level-container"><div class="skills-level-bar" style="width: 85%"></div></div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="scroll-reveal">
+      <h2 class="section-title">Test Executions (Projects)</h2>
+      <div class="projects-container">
+
+        <!-- TC-001 Ticket -->
+        <div class="project-ticket" id="tc001">
+          <div class="ticket-cutout-left"></div>
+          <div class="ticket-cutout-right"></div>
+          
+          <div class="ticket-header">
+            <div class="ticket-id-section">
+              <span class="ticket-id">TC-001</span>
+              <h3 class="ticket-title">Blood Bank Management System</h3>
+            </div>
+            <span class="badge badge-pass">● PASS</span>
+          </div>
+
+          <div class="ticket-body">
+            <div class="ticket-desc">
+              <div>
+                <h4 class="ticket-meta-title">Objective</h4>
+                <p class="ticket-desc-text">
+                  A comprehensive validation project built to practice end-to-end manual testing on a real-world multi-module database application. Tested donor records, blood inventory stock, and issue requests workflows.
+                </p>
+              </div>
+              <div>
+                <h4 class="ticket-meta-title">Scope & Defect Strategy</h4>
+                <p class="ticket-desc-text">
+                  Designed test cases covering functional, boundary, and negative scenarios (e.g., verifying duplicate donor identification blockers, blood group mismatches in transfer requests, and expired stock alert flags). Logged issues and tracked them across multiple regression cycles.
+                </p>
+              </div>
+              <div>
+                <h4 class="ticket-meta-title">Technologies Validated</h4>
+                <div class="ticket-tags">
+                  <span class="ticket-tag">Java</span>
+                  <span class="ticket-tag">SQL (Data Validation)</span>
+                  <span class="ticket-tag">JIRA</span>
+                  <span class="ticket-tag">MS Excel</span>
+                  <span class="ticket-tag">Regression Testing</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ticket-sidebar">
+              <div class="sidebar-metrics">
+                <div>
+                  <h4 class="ticket-meta-title">Audited Metrics</h4>
+                  <div class="metric-row">
+                    <span class="metric-label">Test Cases:</span>
+                    <span class="metric-val">38 Cases</span>
+                  </div>
+                  <div class="metric-row">
+                    <span class="metric-label">Bugs Found:</span>
+                    <span class="metric-val" style="color: var(--accent-fail);">9 Defect Tickets</span>
+                  </div>
+                  <div class="metric-row">
+                    <span class="metric-label">Status code:</span>
+                    <span class="metric-val" style="color: var(--accent-pass);">SUCCESS_STABLE</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="ticket-actions">
+                <a href="https://github.com/KATHIR824" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="padding: 8px 12px; font-size: 0.75rem;">Source Repository ↗</a>
+                <button class="btn-toggle-details" aria-expanded="false" aria-controls="tc001-steps" onclick="toggleDetails('tc001')">View Test Logs</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TC-001 Steps Details panel -->
+          <div class="ticket-details-panel" id="tc001-steps">
+            <div class="ticket-details-content">
+              <h4 class="verification-steps-title">Executed Test Steps Log</h4>
+              <table class="steps-table">
+                <thead>
+                  <tr>
+                    <th>Step ID</th>
+                    <th>Scenario / Description</th>
+                    <th>Expected Result</th>
+                    <th>Result Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>STEP-01</td>
+                    <td>Validate login credentials for System Administrator.</td>
+                    <td>Successful login, redirects to core inventory metrics panel.</td>
+                    <td><span class="step-status"><span class="status-dot"></span>PASS</span></td>
+                  </tr>
+                  <tr>
+                    <td>STEP-02</td>
+                    <td>Register donor with duplicate National ID card details.</td>
+                    <td>System blocks registration with warning 'Record already exists'.</td>
+                    <td><span class="step-status"><span class="status-dot"></span>PASS</span></td>
+                  </tr>
+                  <tr>
+                    <td>STEP-03</td>
+                    <td>Process blood group request with mismatched recipient criteria.</td>
+                    <td>Validation fails, alerts operator of type mismatch hazard.</td>
+                    <td><span class="step-status"><span class="status-dot"></span>PASS</span></td>
+                  </tr>
+                  <tr>
+                    <td>STEP-04</td>
+                    <td>Verify blood inventory database integrity via query logs.</td>
+                    <td>Records accurately map available reserves with active updates.</td>
+                    <td><span class="step-status"><span class="status-dot"></span>PASS</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TC-002 Ticket -->
+        <div class="project-ticket" id="tc002">
+          <div class="ticket-cutout-left"></div>
+          <div class="ticket-cutout-right"></div>
+          
+          <div class="ticket-header">
+            <div class="ticket-id-section">
+              <span class="ticket-id">TC-002</span>
+              <h3 class="ticket-title">KKR Squad 2026 Fan Website</h3>
+            </div>
+            <span class="badge badge-warn">● IN PROGRESS</span>
+          </div>
+
+          <div class="ticket-body">
+            <div class="ticket-desc">
+              <div>
+                <h4 class="ticket-meta-title">Objective</h4>
+                <p class="ticket-desc-text">
+                  A cricket-themed fan web application built for the Kolkata Knight Riders squad, featuring profile pages, squad details, live feeds, and fully responsive components.
+                </p>
+              </div>
+              <div>
+                <h4 class="ticket-meta-title">Scope & Defect Strategy</h4>
+                <p class="ticket-desc-text">
+                  Performed manual test cases for responsive layout, cross-browser support, and contact form verification. Automated repeat checking loops (squad list loading, navigation tabs, newsletter form validation) using Selenium with Java and TestNG to run regression scripts.
+                </p>
+              </div>
+              <div>
+                <h4 class="ticket-meta-title">Technologies Validated</h4>
+                <div class="ticket-tags">
+                  <span class="ticket-tag">Selenium WebDriver</span>
+                  <span class="ticket-tag">Java</span>
+                  <span class="ticket-tag">TestNG</span>
+                  <span class="ticket-tag">Cross-Browser Testing</span>
+                  <span class="ticket-tag">GitHub</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="ticket-sidebar">
+              <div class="sidebar-metrics">
+                <div>
+                  <h4 class="ticket-meta-title">Audited Metrics</h4>
+                  <div class="metric-row">
+                    <span class="metric-label">Test Cases:</span>
+                    <span class="metric-val">28 Cases</span>
+                  </div>
+                  <div class="metric-row">
+                    <span class="metric-label">Automated:</span>
+                    <span class="metric-val" style="color: var(--accent-warn);">65% Complete</span>
+                  </div>
+                  <div class="metric-row">
+                    <span class="metric-label">Status code:</span>
+                    <span class="metric-val" style="color: var(--accent-warn);">TESTS_RUNNING</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="ticket-actions">
+                <a href="https://github.com/KATHIR824" target="_blank" rel="noopener" class="btn btn-secondary btn-sm" style="padding: 8px 12px; font-size: 0.75rem;">Source Repository ↗</a>
+                <button class="btn-toggle-details" aria-expanded="false" aria-controls="tc002-steps" onclick="toggleDetails('tc002')">View Test Logs</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- TC-002 Steps Details panel -->
+          <div class="ticket-details-panel" id="tc002-steps">
+            <div class="ticket-details-content">
+              <h4 class="verification-steps-title">Executed Test Steps Log</h4>
+              <table class="steps-table">
+                <thead>
+                  <tr>
+                    <th>Step ID</th>
+                    <th>Scenario / Description</th>
+                    <th>Expected Result</th>
+                    <th>Result Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>STEP-01</td>
+                    <td>Verify squad list loaded via AJAX feed.</td>
+                    <td>Lists load within 1.5s; profile cards display correct data.</td>
+                    <td><span class="step-status"><span class="status-dot"></span>PASS</span></td>
+                  </tr>
+                  <tr>
+                    <td>STEP-02</td>
+                    <td>Validate contact form with invalid email structure.</td>
+                    <td>Input displays red validation bounds; block submission.</td>
+                    <td><span class="step-status"><span class="status-dot"></span>PASS</span></td>
+                  </tr>
+                  <tr>
+                    <td>STEP-03</td>
+                    <td>Automate multi-browser header link clicks.</td>
+                    <td>Selenium tests load pages successfully on Chrome, Edge, Firefox.</td>
+                    <td><span class="step-status"><span class="status-dot"></span>PASS</span></td>
+                  </tr>
+                  <tr>
+                    <td>STEP-04</td>
+                    <td>Verify newsletter registration automation assertions.</td>
+                    <td>Assert registration completes with correct warning check.</td>
+                    <td><span class="step-status" style="color: var(--accent-warn);"><span class="status-dot" style="background-color: var(--accent-warn); box-shadow: 0 0 8px var(--accent-warn);"></span>RUNNING</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TOOLS BAR SECTION -->
+    <section class="tools-section scroll-reveal">
+      <div class="tools-track">
+        
+        <!-- JIRA -->
+        <a href="https://www.atlassian.com/software/jira" target="_blank" rel="noopener" class="tool-badge tool-badge-jira" title="JIRA - Defect Tracking & Agile Management">
+          <svg viewBox="0 0 24 24">
+            <path d="M11.53 2c0 2.37 1.93 4.3 4.3 4.3H19V2h-7.47zM6 7.53c0 2.37 1.93 4.3 4.3 4.3H13.5V7.53H6zM.47 13.06C.47 15.43 2.4 17.36 4.77 17.36H8v-4.3H.47z"/>
+          </svg>
+          <span>JIRA</span>
+        </a>
+
+        <!-- Selenium -->
+        <a href="https://www.selenium.dev/" target="_blank" rel="noopener" class="tool-badge tool-badge-selenium" title="Selenium - Automated Web Testing">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
+            <text x="5" y="16" font-family="var(--font-mono)" font-size="11" font-weight="bold" fill="currentColor">Se</text>
+          </svg>
+          <span>SELENIUM</span>
+        </a>
+
+        <!-- TestNG -->
+        <a href="https://testng.org/" target="_blank" rel="noopener" class="tool-badge tool-badge-testng" title="TestNG - Next Generation Test Framework">
+          <svg viewBox="0 0 24 24">
+            <rect x="2" y="2" width="20" height="20" rx="4" fill="none" stroke="currentColor" stroke-width="2"/>
+            <path d="M6 8h12M6 12h12M6 16h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+          <span>TESTNG</span>
+        </a>
+
+        <!-- GitHub -->
+        <a href="https://github.com/KATHIR824" target="_blank" rel="noopener" class="tool-badge tool-badge-github" title="GitHub - Version Control Hosting">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.11.82-.26.82-.577v-2.234c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22v3.293c0 .319.2.694.825.576C20.565 21.795 24 17.3 24 12c0-6.63-5.37-12-12-12z"/>
+          </svg>
+          <span>GITHUB</span>
+        </a>
+
+        <!-- Excel -->
+        <a href="https://www.microsoft.com/en-us/microsoft-365/excel" target="_blank" rel="noopener" class="tool-badge tool-badge-excel" title="Microsoft Excel - Data Validation Tables">
+          <svg viewBox="0 0 24 24">
+            <path d="M23 1.5H8.5c-.8 0-1.5.7-1.5 1.5v3.5h16V3c0-.8-.7-1.5-1.5-1.5zM7 8H1V21c0 .8.7 1.5 1.5 1.5H7V8zm8.5 5.5c-.8 0-1.5.7-1.5 1.5v5.5H23V15c0-.8-.7-1.5-1.5-1.5h-6zM15 8H8.5v3.5H15V8z"/>
+          </svg>
+          <span>MS EXCEL</span>
+        </a>
+
+        <!-- IntelliJ -->
+        <a href="https://www.jetbrains.com/idea/" target="_blank" rel="noopener" class="tool-badge tool-badge-intellij" title="IntelliJ IDEA - Core Development IDE">
+          <svg viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0V0zm3.8 3.8v16.4h16.4V3.8H3.8zm2.4 2.4h11.6v2H6.2V6.2zm0 4h11.6v2H6.2v-2zm0 4h6.6v2H6.2v-2z"/>
+          </svg>
+          <span>INTELLIJ</span>
+        </a>
+
+        <!-- VS Code -->
+        <a href="https://code.visualstudio.com/" target="_blank" rel="noopener" class="tool-badge tool-badge-vscode" title="Visual Studio Code - Light Editor">
+          <svg viewBox="0 0 24 24">
+            <path d="M23.984 6.808l-3.328-7.36c-.16-.352-.512-.512-.864-.416l-7.792 2.304 9.136 8.784 2.848-3.312c.16-.16.16-.48 0-.672v.672zM1.168 17.512c-.224 0-.416.096-.544.256l-.544.64c-.16.16-.16.48 0 .672l3.328 3.328c.16.16.48.16.672 0l4.384-4.384-3.312-3.312-3.984 2.8zM12.016 4.712l-7.792-2.304c-.352-.096-.704.064-.864.416l-3.328 7.36c-.16.16-.16.48 0 .672l2.848 3.312 9.136-8.784V4.712zm.832 14.576l7.792 2.304c.352.096.704-.064.864-.416l3.328-7.36c.16-.16.16-.48 0-.672l-2.848-3.312-9.136 8.784v.672z"/>
+          </svg>
+          <span>VS CODE</span>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- EDUCATION & CERTIFICATIONS -->
+    <section id="education" class="scroll-reveal">
+      <h2 class="section-title">Certification Logs</h2>
+      <div class="edu-cert-grid">
+        
+        <!-- Academic Log -->
+        <div class="log-panel">
+          <div class="log-header">
+            <h3 class="log-title">Education Records</h3>
+            <div class="log-dot-pulse">
+              <span class="status-dot"></span>
+              <span>AUDITED</span>
+            </div>
+          </div>
+          
+          <div class="log-entries">
+            
+            <div class="log-item">
+              <div class="log-node">01</div>
+              <div class="log-content">
+                <span class="log-time">2020 - 2024</span>
+                <h4 class="log-entry-title">BE, Computer Science & Engineering</h4>
+                <p class="log-desc">Shree Venkateshwara Hi-Tech Engineering College</p>
+                <span class="log-meta">Focus: Systems architecture, DB queries, networks</span>
+              </div>
+            </div>
+
+            <div class="log-item">
+              <div class="log-node">02</div>
+              <div class="log-content">
+                <span class="log-time">2024</span>
+                <h4 class="log-entry-title">Software Testing Course</h4>
+                <p class="log-desc">Industry-aligned specialized hands-on testing boot camp</p>
+                <span class="log-meta">Syllabus: Java, SQL, Manual Testing methodologies, Selenium framework</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Certifications Log -->
+        <div class="log-panel">
+          <div class="log-header">
+            <h3 class="log-title">Validation Certs</h3>
+            <div class="log-dot-pulse">
+              <span class="status-dot" style="background-color: var(--accent-warn); box-shadow: 0 0 8px var(--accent-warn);"></span>
+              <span>COMPLETED</span>
+            </div>
+          </div>
+
+          <div class="log-entries">
+            
+            <div class="log-item">
+              <div class="log-node">✓</div>
+              <div class="log-content">
+                <span class="log-time">Academic Honors</span>
+                <h4 class="log-entry-title">Paper Presentation Certificate</h4>
+                <p class="log-desc">Presented a research-style paper during collegiate technical symposium.</p>
+                <span class="log-meta">Verified Domain: Information Technologies</span>
+              </div>
+            </div>
+
+            <div class="log-item">
+              <div class="log-node">✓</div>
+              <div class="log-content">
+                <span class="log-time">NPTEL - Swayam</span>
+                <h4 class="log-entry-title">Cloud Computing Certification</h4>
+                <p class="log-desc">National Program on Technology Enhanced Learning (IIT courses).</p>
+                <span class="log-meta">Core metrics: Virtualization, load allocation, cloud architectures</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACT FORM (BUG REPORT FORMAT) -->
+    <section id="contact" class="scroll-reveal">
+      <h2 class="section-title">File Bug Report</h2>
+      
+      <div class="contact-card">
+        <div class="contact-info">
+          
+          <div class="contact-header-block">
+            <h3 class="contact-title">Connect with QA</h3>
+            <p class="contact-intro">
+              Have an open testing position, collaboration request, or just want to chat testing frameworks? Log a contact ticket directly or utilize my external endpoint paths below.
+            </p>
+          </div>
+
+          <div class="contact-links">
+            
+            <!-- Email -->
+            <a href="mailto:kathir7708@gmail.com" class="contact-link-item">
+              <div class="contact-icon-wrapper">✉</div>
+              <div>
+                <div style="font-size: 0.7rem; color: var(--text-secondary);">MAILTO:</div>
+                <div>kathir7708@gmail.com</div>
+              </div>
+            </a>
+
+            <!-- Phone -->
+            <a href="tel:8248259168" class="contact-link-item">
+              <div class="contact-icon-wrapper">☎</div>
+              <div>
+                <div style="font-size: 0.7rem; color: var(--text-secondary);">TEL:</div>
+                <div>+91 8248259168</div>
+              </div>
+            </a>
+
+            <!-- LinkedIn -->
+            <a href="https://www.linkedin.com/in/kathiravan824" target="_blank" rel="noopener" class="contact-link-item">
+              <div class="contact-icon-wrapper">in</div>
+              <div>
+                <div style="font-size: 0.7rem; color: var(--text-secondary);">LINKEDIN:</div>
+                <div>linkedin.com/in/kathiravan824</div>
+              </div>
+            </a>
+
+            <!-- GitHub -->
+            <a href="https://github.com/KATHIR824" target="_blank" rel="noopener" class="contact-link-item">
+              <div class="contact-icon-wrapper">git</div>
+              <div>
+                <div style="font-size: 0.7rem; color: var(--text-secondary);">GITHUB:</div>
+                <div>github.com/KATHIR824</div>
+              </div>
+            </a>
+
+            <!-- WhatsApp -->
+            <a href="https://wa.me/qr/ZYZOKB6VZQVOB1" target="_blank" rel="noopener" class="contact-link-item">
+              <div class="contact-icon-wrapper">wa</div>
+              <div>
+                <div style="font-size: 0.7rem; color: var(--text-secondary);">WHATSAPP:</div>
+                <div>Message Directly</div>
+              </div>
+            </a>
+
+          </div>
+        </div>
+
+        <!-- Form: Log Bug Ticket -->
+        <div class="contact-form-container">
+          <form id="bug-report-form" onsubmit="submitBugReport(event)">
+            
+            <div class="form-group">
+              <label for="reporter-name" class="form-label">Reporter Name *</label>
+              <input type="text" id="reporter-name" class="form-input" placeholder="Enter your full name" required>
+            </div>
+
+            <div class="form-group">
+              <label for="reporter-email" class="form-label">Reporter Email Address *</label>
+              <input type="email" id="reporter-email" class="form-input" placeholder="e.g. manager@company.com" required>
+            </div>
+
+            <div class="form-group">
+              <label for="bug-priority" class="form-label">Ticket Severity Level</label>
+              <select id="bug-priority" class="form-select">
+                <option value="Low">Low - Casual Inquiry / Hello</option>
+                <option value="Medium" selected>Medium - Opportunity / Interview</option>
+                <option value="High">High - Urgent Hiring / Project Contract</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="bug-description" class="form-label">Issue Details / Message *</label>
+              <textarea id="bug-description" class="form-textarea" placeholder="Provide details, project specs, or inquiry messages..." required></textarea>
+            </div>
+
+            <div class="form-submit-row">
+              <button type="submit" class="btn btn-primary">[+] Submit Bug Report</button>
+            </div>
+
+          </form>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-content">
+      <div class="footer-left">
+        <span>© 2026 Kathiravan E</span>
+        <span>|</span>
+        <span>Version 1.0.4-LTS</span>
+      </div>
+      <div class="footer-right">
+        <span>Tested & Certified: Standard QA Coverage Verified</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL: SUCCESS TICKET CREATION -->
+  <div class="modal-overlay" id="success-modal" role="dialog" aria-modal="true" aria-labelledby="modal-heading">
+    <div class="modal-card">
+      <div class="modal-icon">✓</div>
+      <h3 class="modal-title" id="modal-heading">Ticket Logged Successfully</h3>
+      <p class="modal-text">
+        Your inquiry has been successfully serialized and submitted as a simulated bug report ticket. Kathiravan will parse the logs and query back shortly.
+      </p>
+      <div class="modal-ticket-id" id="modal-ticket-key">TICKET-KEY: QA-2026-XXXX</div>
+      <div>
+        <button class="btn btn-primary" onclick="closeModal()" style="width: 120px;">[OK]</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript logic -->
+  <script>
+    /* --------------------------------------------------
+       MOBILE MENU TOGGLE
+       -------------------------------------------------- */
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    
+    mobileMenuBtn.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
+    });
+
+    // Close menu when clicking links
+    document.querySelectorAll('.nav-link').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+      });
+    });
+
+    /* --------------------------------------------------
+       3D GRID BACKGROUND (CANVAS INTERACTIVE)
+       -------------------------------------------------- */
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    let points = [];
+    const columns = 20;
+    const rows = 20;
+    const spacingX = 80;
+    const spacingY = 80;
+    const gridWidth = columns * spacingX;
+    const gridHeight = rows * spacingY;
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetRotX = -0.3; // Default tilt
+    let targetRotY = 0.1;
+    let rotX = targetRotX;
+    let rotY = targetRotY;
+    
+    // Check user preference for reduced motion
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    class GridPoint {
+      constructor(gx, gy, gz) {
+        this.x = gx;
+        this.y = gy;
+        this.z = gz;
+        this.baseY = gy;
+        this.state = 'info'; // pass, warn, fail, info
+        this.pulseSeed = Math.random() * 100;
+        
+        // Randomly assign some nodes as test points with status colors
+        const rand = Math.random();
+        if (rand < 0.05) this.state = 'pass';
+        else if (rand < 0.06) this.state = 'fail';
+        else if (rand < 0.07) this.state = 'warn';
+      }
+
+      update(time) {
+        if (prefersReducedMotion) return;
+        // Ripple wave calculations to simulate dynamic loading
+        const dist = Math.sqrt(this.x * this.x + this.z * this.z);
+        this.y = this.baseY + Math.sin(dist * 0.005 - time * 0.002) * 20;
+      }
+    }
+
+    // Initialize Grid Points
+    for (let c = 0; c < columns; c++) {
+      for (let r = 0; r < rows; r++) {
+        const x = (c - columns / 2) * spacingX;
+        const z = (r - rows / 2) * spacingY;
+        const y = 0;
+        points.push(new GridPoint(x, y, z));
+      }
+    }
+
+    // Capture Mouse Movements
+    window.addEventListener('mousemove', (e) => {
+      if (prefersReducedMotion) return;
+      mouseX = (e.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
+      mouseY = (e.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
+      targetRotX = -0.3 + mouseY * 0.15; // Shift vertical rotation tilt
+      targetRotY = 0.1 + mouseX * 0.25;  // Shift horizontal rotation tilt
+    });
+
+    window.addEventListener('resize', () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    });
+
+    // Main Canvas Render Loop
+    function render(time) {
+      ctx.clearRect(0, 0, width, height);
+
+      // Damp rotation calculations
+      rotX += (targetRotX - rotX) * 0.05;
+      rotY += (targetRotY - rotY) * 0.05;
+
+      const cosX = Math.cos(rotX);
+      const sinX = Math.sin(rotX);
+      const cosY = Math.cos(rotY);
+      const sinY = Math.sin(rotY);
+
+      const fov = 400; // perspective depth parameter
+      const centerScreenX = width / 2;
+      const centerScreenY = height * 0.55;
+
+      const projectedPoints = points.map(p => {
+        p.update(time);
+
+        // 3D Rotations
+        // Y Rotation
+        let x1 = p.x * cosY - p.z * sinY;
+        let z1 = p.x * sinY + p.z * cosY;
+
+        // X Rotation
+        let y2 = p.y * cosX - z1 * sinX;
+        let z2 = p.y * sinX + z1 * cosX;
+
+        // Perspective translate
+        const depth = z2 + 800; // push depth away
+        
+        let screenX = (x1 * fov) / depth + centerScreenX;
+        let screenY = (y2 * fov) / depth + centerScreenY;
+
+        return {
+          sx: screenX,
+          sy: screenY,
+          depth: depth,
+          state: p.state,
+          pulse: p.pulseSeed
+        };
+      });
+
+      // Render lines connecting columns and rows
+      ctx.lineWidth = 1;
+      ctx.strokeStyle = '#21262d';
+
+      for (let c = 0; c < columns; c++) {
+        for (let r = 0; r < rows; r++) {
+          const index = c * rows + r;
+          const current = projectedPoints[index];
+
+          // Draw horizontal connection line
+          if (c < columns - 1) {
+            const right = projectedPoints[(c + 1) * rows + r];
+            if (current.depth > 100 && right.depth > 100) {
+              const alpha = Math.max(0, 1 - current.depth / 1600);
+              ctx.strokeStyle = `rgba(33, 38, 45, ${alpha * 0.45})`;
+              ctx.beginPath();
+              ctx.moveTo(current.sx, current.sy);
+              ctx.lineTo(right.sx, right.sy);
+              ctx.stroke();
+            }
+          }
+
+          // Draw vertical connection line
+          if (r < rows - 1) {
+            const down = projectedPoints[index + 1];
+            if (current.depth > 100 && down.depth > 100) {
+              const alpha = Math.max(0, 1 - current.depth / 1600);
+              ctx.strokeStyle = `rgba(33, 38, 45, ${alpha * 0.45})`;
+              ctx.beginPath();
+              ctx.moveTo(current.sx, current.sy);
+              ctx.lineTo(down.sx, down.sy);
+              ctx.stroke();
+            }
+          }
+
+          // Render Nodes
+          if (current.depth > 100) {
+            const alpha = Math.max(0, 1 - current.depth / 1600) * 0.8;
+            
+            if (current.state === 'pass') {
+              const size = 3 + Math.sin(time * 0.005 + current.pulse) * 1.5;
+              ctx.fillStyle = `rgba(63, 185, 80, ${alpha})`;
+              ctx.beginPath();
+              ctx.arc(current.sx, current.sy, size, 0, Math.PI * 2);
+              ctx.fill();
+            } else if (current.state === 'fail') {
+              const size = 3.5 + Math.sin(time * 0.01 + current.pulse) * 1.5;
+              ctx.fillStyle = `rgba(248, 81, 73, ${alpha})`;
+              ctx.beginPath();
+              ctx.arc(current.sx, current.sy, size, 0, Math.PI * 2);
+              ctx.fill();
+            } else if (current.state === 'warn') {
+              const size = 3 + Math.sin(time * 0.007 + current.pulse) * 1.2;
+              ctx.fillStyle = `rgba(210, 153, 34, ${alpha})`;
+              ctx.beginPath();
+              ctx.arc(current.sx, current.sy, size, 0, Math.PI * 2);
+              ctx.fill();
+            } else {
+              // Standard node point
+              ctx.fillStyle = `rgba(139, 148, 158, ${alpha * 0.25})`;
+              ctx.beginPath();
+              ctx.arc(current.sx, current.sy, 1.5, 0, Math.PI * 2);
+              ctx.fill();
+            }
+          }
+        }
+      }
+
+      requestAnimationFrame(render);
+    }
+    requestAnimationFrame(render);
+
+
+    /* --------------------------------------------------
+       3D TERMINAL BOOT SEQUENCE & REVEAL
+       -------------------------------------------------- */
+    const terminalScreen = document.getElementById('terminal-screen');
+    const heroContent = document.querySelector('.hero-content');
+    
+    // Command lines to be typed/printed sequentially
+    const terminalScript = [
+      { type: 'cmd', text: 'selenium-runner --suite "kathiravan_portfolio"' },
+      { type: 'info', text: 'Initializing testing cycle... chrome.driver loaded successfully.' },
+      { type: 'info', text: 'Starting test suites in thread pools [workers: 4]' },
+      { type: 'info', text: 'Executing test: TC-001_BloodBank_InventoryVerification...' },
+      { type: 'success', text: '  [PASS] TC-001_AdminInterfaceAccess' },
+      { type: 'success', text: '  [PASS] TC-001_DuplicateRecordsBlocked (Boundary Validation)' },
+      { type: 'info', text: 'Executing test: TC-002_KKR_FansiteNavigationAutomation...' },
+      { type: 'success', text: '  [PASS] TC-002_ResponsiveBreakpointLoad_Chrome' },
+      { type: 'warning', text: '  [WARN] TC-002_NewsletterFormAutomation (Integration In-Progress)' },
+      { type: 'info', text: 'Running sanity assertions across local host integrations...' },
+      { type: 'success', text: '  Java runtime bindings validation ........ SUCCESS' },
+      { type: 'success', text: '  SQL query connections (database checks) . SUCCESS' },
+      { type: 'success', text: '  JIRA API connector initialization ....... SUCCESS' },
+      { type: 'info', text: '--------------------------------------------------' },
+      { type: 'success', text: 'TEST REPORT SUMMARY: 14 PASS / 1 PENDING / 0 FAIL' },
+      { type: 'success', text: 'SUITE QUALITY METRIC: 98.4% (READY FOR DEPLOYMENT)' },
+      { type: 'cmd', text: 'cat kathiravan_profile.json' },
+      { type: 'profile', text: 'Kathiravan E. QA Engineer. Manual & Automation.' }
+    ];
+
+    let currentScriptIndex = 0;
+    
+    function playTerminalLine() {
+      if (currentScriptIndex >= terminalScript.length) {
+        // Remove cursor line, show normal prompt, reveal Hero text content
+        const cursorLine = document.querySelector('.cursor-line');
+        if (cursorLine) cursorLine.remove();
+        
+        const finalPrompt = document.createElement('div');
+        finalPrompt.className = 'terminal-line';
+        finalPrompt.innerHTML = `<span class="line-cmd"></span><span class="cursor"></span>`;
+        terminalScreen.appendChild(finalPrompt);
+        
+        // Reveal Hero Text layout with CSS fade transition
+        heroContent.classList.add('revealed');
+        return;
+      }
+
+      const step = terminalScript[currentScriptIndex];
+      const lineDiv = document.createElement('div');
+      lineDiv.className = 'terminal-line';
+      
+      // Select text coloring base on type
+      if (step.type === 'cmd') {
+        lineDiv.className += ' line-cmd';
+      } else if (step.type === 'info') {
+        lineDiv.className += ' line-info';
+      } else if (step.type === 'success') {
+        lineDiv.className += ' line-success';
+      } else if (step.type === 'warning') {
+        lineDiv.className += ' line-warning';
+      } else if (step.type === 'profile') {
+        lineDiv.style.color = '#fff';
+        lineDiv.style.fontWeight = 'bold';
+      }
+
+      // Append typing line
+      terminalScreen.appendChild(lineDiv);
+
+      // Scroll to bottom of terminal
+      terminalScreen.scrollTop = terminalScreen.scrollHeight;
+
+      if (step.type === 'cmd') {
+        // Run letters typing animations
+        let charIndex = 0;
+        const typingTimer = setInterval(() => {
+          if (charIndex >= step.text.length) {
+            clearInterval(typingTimer);
+            currentScriptIndex++;
+            setTimeout(playTerminalLine, 400); // Wait after command
+          } else {
+            lineDiv.textContent += step.text[charIndex];
+            charIndex++;
+          }
+        }, 30);
+      } else {
+        // Print lines instantly
+        lineDiv.textContent = step.text;
+        currentScriptIndex++;
+        
+        // Dynamic wait times based on log types
+        const delay = step.type === 'success' ? 120 : 300;
+        setTimeout(playTerminalLine, delay);
+      }
+    }
+
+    // Begin sequence on viewport ready
+    window.addEventListener('DOMContentLoaded', () => {
+      // Clear out fallback bootstrap indicators
+      terminalScreen.innerHTML = '';
+      
+      // Start typing simulation
+      setTimeout(playTerminalLine, 600);
+    });
+
+    /* --------------------------------------------------
+       3D PARALLAX MOUSE SHIFT (HERO WINDOW)
+       -------------------------------------------------- */
+    const heroVisual = document.querySelector('.hero-visual');
+    const heroSection = document.getElementById('hero');
+
+    if (!prefersReducedMotion) {
+      heroSection.addEventListener('mousemove', (e) => {
+        const rect = heroVisual.getBoundingClientRect();
+        
+        // Calculate offsets relative to hero visual box center
+        const x = e.clientX - (rect.left + rect.width / 2);
+        const y = e.clientY - (rect.top + rect.height / 2);
+        
+        // Calculate tilt
+        const rotXAngle = -(y / (window.innerHeight / 2)) * 18; // Max 18deg
+        const rotYAngle = (x / (window.innerWidth / 2)) * 18;
+        
+        heroVisual.style.transform = `rotateX(${rotXAngle}deg) rotateY(${rotYAngle}deg)`;
+      });
+
+      // Reset coordinates when leaving
+      heroSection.addEventListener('mouseleave', () => {
+        heroVisual.style.transform = `rotateX(0deg) rotateY(0deg)`;
+      });
+    }
+
+    /* --------------------------------------------------
+       SKILL & PROJECT CARDS 3D TILT ON HOVER
+       -------------------------------------------------- */
+    const tiltCards = document.querySelectorAll('.skills-card, .profile-card, .project-ticket, .contact-card');
+
+    if (!prefersReducedMotion && window.innerWidth > 768) {
+      tiltCards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left - rect.width / 2;
+          const y = e.clientY - rect.top - rect.height / 2;
+          
+          // Max rotation degrees
+          const rotXAngle = -(y / rect.height) * 12;
+          const rotYAngle = (x / rect.width) * 12;
+          
+          card.style.transform = `perspective(1000px) rotateX(${rotXAngle}deg) rotateY(${rotYAngle}deg) scale3d(1.015, 1.015, 1.015)`;
+        });
+
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+          card.style.transition = 'transform 0.5s ease-out';
+        });
+
+        card.addEventListener('mouseenter', () => {
+          card.style.transition = 'none';
+        });
+      });
+    }
+
+    /* --------------------------------------------------
+       SCROLL-BASED 3D REVEALS (INTERSECTIONOBSERVER)
+       -------------------------------------------------- */
+    const revealItems = document.querySelectorAll('.scroll-reveal');
+    
+    const revealCallback = (entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+
+    const revealObserver = new IntersectionObserver(revealCallback, {
+      root: null,
+      threshold: 0.1, // trigger early when top enters viewport
+      rootMargin: '0px 0px -50px 0px'
+    });
+
+    revealItems.forEach(item => {
+      revealObserver.observe(item);
+    });
+
+    /* --------------------------------------------------
+       PROJECTS EXPANDABLE TEST LOGS
+       -------------------------------------------------- */
+    function toggleDetails(projectId) {
+      const panel = document.getElementById(`${projectId}-steps`);
+      const btn = document.querySelector(`#${projectId} .btn-toggle-details`);
+      const isExpanded = btn.getAttribute('aria-expanded') === 'true';
+
+      if (isExpanded) {
+        panel.style.maxHeight = '0px';
+        btn.setAttribute('aria-expanded', 'false');
+        btn.textContent = 'View Test Logs';
+      } else {
+        panel.style.maxHeight = `${panel.scrollHeight}px`;
+        btn.setAttribute('aria-expanded', 'true');
+        btn.textContent = 'Hide Test Logs';
+        
+        // Smoothly adjust any parent height structures
+        setTimeout(() => {
+          // If we had parent heights they would update here
+        }, 400);
+      }
+    }
+
+    /* --------------------------------------------------
+       BUG REPORT CONTACT FORM SUBMISSION
+       -------------------------------------------------- */
+    const successModal = document.getElementById('success-modal');
+    const modalTicketKey = document.getElementById('modal-ticket-key');
+
+    function submitBugReport(event) {
+      event.preventDefault();
+
+      // Collect mock variables
+      const name = document.getElementById('reporter-name').value;
+      const email = document.getElementById('reporter-email').value;
+      const priority = document.getElementById('bug-priority').value;
+      const desc = document.getElementById('bug-description').value;
+
+      if (!name || !email || !desc) {
+        alert("Please fulfill all required fields.");
+        return;
+      }
+
+      // Generate a mock ticket code key
+      const randId = Math.floor(1000 + Math.random() * 9000);
+      const severityPrefix = priority.substring(0, 3).toUpperCase();
+      const ticketCode = `BUG-${severityPrefix}-${randId}`;
+
+      // Set ticket ID in alert modal
+      modalTicketKey.textContent = `TICKET-KEY: ${ticketCode}`;
+      
+      // Open modal
+      successModal.classList.add('active');
+
+      // Clear input fields
+      document.getElementById('bug-report-form').reset();
+    }
+
+    function closeModal() {
+      successModal.classList.remove('active');
+    }
+  </script>
+</body>
+</html>
